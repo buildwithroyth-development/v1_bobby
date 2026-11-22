@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Doctors | Dr. Bobby Thomas Dental &amp; Implant Centre</title>
+<meta name="description" content="Meet the dental team at Dr. Bobby Thomas Dental & Implant Centre, Bengaluru.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  /* ---------- Doctor profile: crisp, two columns, tile portrait ---------- */
+  .dp { padding: calc(76px + clamp(2rem, 5vw, 3.5rem)) 0 clamp(3.5rem, 7vw, 6rem); }
+  .dp-grid { display: grid; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  @media (min-width: 920px) { .dp-grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.35fr); } .dp-side { position: sticky; top: 120px; } }
+  @media (max-width: 919px) { .dp-side { order: 2; max-width: 380px; } }
+
+  /* Portrait on the doctor's colour tile (same tile as the homepage) */
+  .ptile { position: relative; display: block; aspect-ratio: 1 / 1.08; }
+  .ptile .tile { position: absolute; inset: 12% 0 0 0; border-radius: 22px;
+    background: radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,.35), transparent 60%), linear-gradient(150deg, var(--c1), var(--c2)); }
+  .ptile .ph { position: absolute; inset: 12% 0 0 0; z-index: 1; border: 0; border-radius: 22px; overflow: hidden; background: transparent; display: grid; place-items: center; }
+  .ptile .ph::after { content: none; }
+  .ptile .ph > img { object-position: 50% 15%; }
+  .ptile .monogram { font-family: var(--font-serif); font-style: italic; font-size: clamp(5rem, 12vw, 8rem); line-height: 1; color: rgba(72,42,65,.35); }
+  .ptile.cut .ph { inset: 0; border-radius: 0; overflow: visible; clip-path: inset(-10% 0 0 0 round 0 0 22px 22px); }
+  .ptile.cut .ph > img { inset: auto; bottom: 0; left: 50%; translate: -50% 0; height: 100%; width: auto; max-width: none; object-fit: contain; }
+  .dp-side .actions { display: grid; gap: .5rem; margin-top: 1.25rem; }
+  .dp-side .actions .btn { width: 100%; }
+
+  /* Main column */
+  .dp-main .crumbs { margin-bottom: 1.25rem; }
+  .dp-main h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem); letter-spacing: -.04em; line-height: 1.02; }
+  .dp-main .role { margin-top: .6rem; font-size: clamp(1.05rem, 1rem + .3vw, 1.25rem); font-weight: 500; color: var(--cocoa); }
+  .dp-lead { margin-top: 1.8rem; padding-top: 1.8rem; border-top: 1px solid var(--line-strong); font-size: clamp(1.1rem, 1rem + .45vw, 1.35rem); line-height: 1.55; letter-spacing: -.01em; color: var(--text); max-width: 60ch; }
+  .dp-more p { color: var(--muted); max-width: 62ch; margin-top: 1rem; }
+  .dp-block { margin-top: clamp(2.2rem, 4vw, 3rem); }
+  .dp-block h2 { font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .quals { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+  @media (min-width: 640px) { .quals { grid-template-columns: 1fr 1fr; } }
+  .quals li { display: flex; gap: .75rem; align-items: flex-start; padding: .9rem 1rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); font-size: .95rem; line-height: 1.4; }
+  .quals li::before { content: ""; flex: none; width: 22px; height: 22px; margin-top: -.05rem; border-radius: 50%;
+    background: var(--cocoa) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%23FFF9F0' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; }
+  .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .tags li { padding: .5rem .95rem; border-radius: 999px; font-size: .9rem; background: color-mix(in srgb, var(--sand) 30%, var(--surface)); border: 1px solid color-mix(in srgb, var(--sand) 60%, transparent); }
+  .soon { display: flex; gap: .9rem; align-items: center; padding: 1rem 1.2rem; border-radius: 16px; border: 1px dashed var(--line-strong); background: var(--surface); color: var(--muted); font-size: .95rem; }
+  .soon svg { flex: none; width: 22px; height: 22px; color: var(--cocoa); }
+
+  /* Rest of the team: small tiles */
+  .team-strip { padding: clamp(3rem, 6vw, 4.5rem) 0; border-top: 1px solid var(--line); }
+  .team-strip h2 { font-size: var(--step-2); margin-bottom: 1.5rem; }
+  .mini-grid { display: grid; gap: 1.5rem .9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 700px) { .mini-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .mini { display: block; text-decoration: none; color: var(--text); -webkit-tap-highlight-color: transparent; }
+  .mini .ptile { aspect-ratio: 1 / 1.05; }
+  .mini .ptile .tile, .mini .ptile .ph { border-radius: 14px; }
+  .mini .ptile.cut .ph { clip-path: inset(-10% 0 0 0 round 0 0 14px 14px); }
+  .mini .monogram { font-size: 3rem; }
+  .mini b { display: block; margin-top: .75rem; font-weight: 600; font-size: .98rem; letter-spacing: -.01em; }
+  .mini span.r { display: block; margin-top: .2rem; font-size: .68rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); line-height: 1.45; }
+  .mini .ph > img { transition: transform 500ms var(--ease-out); transform-origin: 50% 100%; }
+  .js .mini[data-reveal], .js .mini[data-reveal].in { transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out), scale 160ms var(--ease-out); }
+  .mini:active { scale: .97; }
+  @media (hover: hover) and (pointer: fine) {
+    .mini:hover .ph > img { transform: scale(1.04); }
+    .mini:hover b { text-decoration: underline; text-decoration-color: var(--sand); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  }
+
+  /* Load: the portrait tile rises once */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .rise { opacity: 0; transform: translateY(14px); animation: rise 800ms var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+  }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+</style>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/fx.css">
+</head>
+<body data-page="doctor">
+<main id="main"></main>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/motion.js"></script>
+<script>
+(function () {
+  var S = SITE, U = UI, esc = U.esc;
+  var id = new URLSearchParams(location.search).get("id");
+  var d = S.doctors.find(function (x) { return x.id === id; }) || S.doctors[0];
+  document.title = d.name + " – " + d.role + " | Dr. Bobby Thomas Dental & Implant Centre";
+
+  /* Same tile colours and cut-outs as the homepage, so each doctor keeps one identity */
+  var tiles = [["#E2D2C8", "#CEB2BD"], ["#D9CCD9", "#B7A1BB"], ["#EADFD8", "#D9C3CC"], ["#E6DAE0", "#C7B0BD"], ["#DCC6CF", "#8E7692"], ["#E8D8D0", "#CDB3BB"]];
+  var cutout = { "bobby-thomas": 1, "pranav": 1, "saad-ahmed": 1, "amit-asudani": 1 };
+  var initials = function (n) { return n.replace("Dr. ", "").split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2); };
+  var tileFor = function (doc, extra) {
+    var t = tiles[S.doctors.indexOf(doc) % tiles.length];
+    return '<span class="ptile' + (cutout[doc.id] ? " cut" : "") + (extra || "") + '" style="--c1:' + t[0] + ';--c2:' + t[1] + '">' +
+      '<span class="tile" aria-hidden="true"></span>' +
+      '<span class="ph" data-img="doctor-' + doc.id + '" data-alt="' + esc(doc.name) + '"><span class="monogram" aria-hidden="true">' + initials(doc.name) + '</span></span></span>';
+  };
+  var CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+
+  var bio = d.bio || [];
+  var html = '<section class="dp"><div class="wrap dp-grid">' +
+    '<aside class="dp-side">' + U.figure(d, { big: true }) +
+      '<div class="actions rise" style="--d:120ms"><a class="btn" href="contact.html">Book a consultation ' + U.ARROW + '</a></div>' +
+    '</aside>' +
+    '<div class="dp-main">' +
+      '<nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="index.html#doctors">Our doctors</a><span aria-hidden="true">/</span><span aria-current="page">' + esc(d.name) + '</span></nav>' +
+      '<span class="eyebrow rise" style="--d:60ms">' + (d.featured ? "Featured doctor" : "Our dental team") + '</span>' +
+      '<h1 class="rise" style="--d:90ms">' + esc(d.name) + '</h1>' +
+      '<p class="role rise" style="--d:130ms">' + esc(d.role) + '</p>' +
+      (bio.length ? '<p class="dp-lead rise" style="--d:180ms">' + esc(bio[0]) + '</p>' : '') +
+      (bio.length > 1 ? '<div class="dp-more">' + bio.slice(1).map(function (p) { return '<p data-reveal>' + esc(p) + '</p>'; }).join("") + '</div>' : '') +
+      (d.quals ? '<div class="dp-block"><h2 data-reveal>Qualifications &amp; Professional Credentials</h2><ul class="quals">' + d.quals.map(function (q) { return '<li data-reveal>' + esc(q) + '</li>'; }).join("") + '</ul></div>' : '') +
+      (d.interests ? '<div class="dp-block"><h2 data-reveal>Areas of Clinical Interest</h2><ul class="tags">' + d.interests.map(function (q) { return '<li data-reveal>' + esc(q) + '</li>'; }).join("") + '</ul></div>' : '') +
+      /* d.pending (qualifications still to come from the clinic) is not shown on the page */
+    '</div>' +
+  '</div></section>' +
+  '<section class="team-strip"><div class="wrap"><h2 data-reveal>Meet the rest of the team</h2><div class="team-grid fig-grid" style="--n:5">' +
+    S.doctors.filter(function (x) { return x !== d; }).map(function (x) {
+      return U.figure(x);
+    }).join("") +
+  '</div></div></section>';
+  html += U.cta();
+  document.getElementById("main").innerHTML = html;
+  pageReady();
+})();
+</script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

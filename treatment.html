@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Treatments | Dr. Bobby Thomas Dental &amp; Implant Centre</title>
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  /* ---------- Treatment page: crisp hero, sticky index, one clean reading column ---------- */
+  .tp-hero { padding: calc(76px + clamp(2rem, 5vw, 3.5rem)) 0 clamp(3rem, 6vw, 4.5rem); }
+  .tp-hero-grid { display: grid; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  @media (min-width: 960px) { .tp-hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); } }
+  .tp-hero h1 { font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.2rem); letter-spacing: -.04em; line-height: 1.02; max-width: 15ch; margin-top: .4rem; }
+  .tp-hero .lead { margin-top: 1.2rem; max-width: 56ch; }
+  .tp-hero .lead + .lead { margin-top: .8rem; }
+  .tp-hero .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+  .tp-hero .ph { aspect-ratio: 4 / 4.6; border-radius: 26px; border: 0; box-shadow: var(--shadow); }
+  @media (max-width: 959px) { .tp-hero .ph { aspect-ratio: 4 / 3; } }
+
+  .tp-body { display: grid; gap: 2rem; padding-bottom: clamp(3rem, 6vw, 5rem); }
+  @media (min-width: 1000px) { .tp-body { grid-template-columns: 240px minmax(0, 1fr); gap: clamp(3rem, 6vw, 5.5rem); } }
+
+  /* "On this page" index with a sliding marker */
+  .toc { display: none; }
+  @media (min-width: 1000px) {
+    .toc { display: block; position: sticky; top: 120px; align-self: start; }
+    .toc p { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .9rem; }
+    .toc ol { list-style: none; margin: 0; padding: 0 0 0 1rem; position: relative; border-left: 1px solid var(--line-strong); }
+    .toc a { display: block; padding: .45rem 0; font-size: .9rem; line-height: 1.35; color: var(--muted); text-decoration: none; transition: color 150ms ease; }
+    .toc a[aria-current="true"] { color: var(--text); font-weight: 500; }
+    @media (hover: hover) and (pointer: fine) { .toc a:hover { color: var(--text); } }
+    .toc-mark { position: absolute; left: -1.5px; top: 0; width: 2px; border-radius: 2px; background: var(--cocoa); transition: transform 260ms var(--ease-out), height 260ms var(--ease-out); }
+  }
+
+  .tp-sec { padding: clamp(2.5rem, 5vw, 3.5rem) 0; border-top: 1px solid var(--line); scroll-margin-top: 110px; }
+  .tp-sec:first-child { border-top: 0; padding-top: 0; }
+  .tp-sec h2 { font-size: clamp(1.6rem, 1.2rem + 1.3vw, 2.2rem); letter-spacing: -.03em; max-width: 24ch; margin-bottom: 1.4rem; }
+  .tp-sec .p-lead { font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); line-height: 1.55; letter-spacing: -.01em; max-width: 60ch; }
+  .tp-sec .p-more { color: var(--muted); max-width: 62ch; margin-top: 1rem; }
+  .tp-note { margin-top: 1.2rem; font-size: .92rem; color: var(--muted); font-style: italic; }
+
+  .sym { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+  @media (min-width: 640px) { .sym { grid-template-columns: 1fr 1fr; } }
+  .sym li { display: flex; gap: .8rem; align-items: center; padding: .95rem 1.1rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); font-size: .97rem; line-height: 1.4; }
+  .sym li::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--sand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sand) 30%, transparent); }
+  .sym.check li::before { width: 22px; height: 22px; box-shadow: none;
+    background: var(--cocoa) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5' fill='none' stroke='%23FFF9F0' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; }
+
+  .opts { display: grid; gap: .9rem; }
+  @media (min-width: 640px) { .opts { grid-template-columns: 1fr 1fr; } }
+  .opt { padding: 1.3rem 1.35rem; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+  .opt .num { font-size: .78rem; }
+  .opt h3 { font-size: 1.12rem; margin: .35rem 0 .4rem; }
+  .opt p { color: var(--muted); font-size: .94rem; }
+
+  /* Steps: reuse the shared timeline, a touch crisper */
+  .tp-sec .steps-list li::before { background: var(--cocoa); color: #FFFDFB; border-color: var(--cocoa); }
+  .tp-sec .steps-list h3 { font-size: 1.15rem; }
+
+  .why4 { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  @media (min-width: 640px) { .why4 { grid-template-columns: 1fr 1fr; } }
+  .why4 div { background: var(--surface); padding: 1.3rem 1.4rem; }
+  .why4 h3 { font-size: 1.05rem; margin-bottom: .35rem; }
+  .why4 p { color: var(--muted); font-size: .93rem; }
+
+  /* Related: photo cards */
+  .rel { padding: clamp(3rem, 6vw, 4.5rem) 0; border-top: 1px solid var(--line); }
+  .rel h2 { font-size: var(--step-2); margin-bottom: 1.5rem; }
+  .rel-grid { display: grid; gap: 1rem; }
+  @media (min-width: 760px) { .rel-grid { grid-template-columns: repeat(3, 1fr); } }
+  .rc { display: flex; flex-direction: column; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .rc .ph { aspect-ratio: 16 / 10; border: 0; border-radius: 0; }
+  .rc .ph::after { content: none; }
+  .rc .ph > img { transition: scale 500ms var(--ease-out); }
+  .rc .txt { padding: 1rem 1.15rem 1.15rem; }
+  .rc h3 { font-size: 1.05rem; display: flex; justify-content: space-between; gap: 1rem; }
+  .rc h3 span { color: var(--muted); transition: transform 200ms var(--ease-out), color 150ms ease; }
+  .rc p { color: var(--muted); font-size: .9rem; margin-top: .35rem; }
+  .js .rc[data-reveal], .js .rc[data-reveal].in, .rc { transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out), translate 220ms var(--ease-out), scale 160ms var(--ease-out), box-shadow 220ms ease; }
+  .rc:active { scale: .985; }
+  @media (hover: hover) and (pointer: fine) {
+    .rc:hover { translate: 0 -4px; box-shadow: 0 18px 34px -20px rgba(72,42,65,.35); }
+    .rc:hover .ph > img { scale: 1.05; }
+    .rc:hover h3 span { transform: translateX(3px); color: var(--text); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js .rise { opacity: 0; transform: translateY(12px); animation: rise 800ms var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+  }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+</style>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/fx.css">
+</head>
+<body data-page="treatment">
+<main id="main"></main>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/motion.js"></script>
+<script>
+(function () {
+  var S = SITE, U = UI, esc = U.esc;
+  var id = new URLSearchParams(location.search).get("id");
+  var idx = Math.max(0, S.treatments.findIndex(function (t) { return t.id === id; }));
+  var t = S.treatments[idx];
+  document.title = t.seoTitle;
+  document.querySelector('meta[name="description"]').setAttribute("content", t.meta);
+
+  /* short index labels, derived from the section type */
+  function label(s) {
+    if (s.type === "text" || s.type === "pair") return "Overview";
+    if (s.type === "steps") return "How it works";
+    if (s.type === "options") return "Treatment options";
+    if (s.type === "list" && s.style === "check") return /benefit/i.test(s.h) ? "Benefits" : "Services";
+    if (s.type === "list") return /sign|symptom/i.test(s.h) ? "Signs to look for" : "When you might need it";
+    return s.h;
+  }
+
+  var secs = [];   /* {id, label, html} */
+  t.sections.forEach(function (s, k) {
+    var sid = "sec-" + k, body = "";
+    if (s.type === "text") body = s.p.map(function (p, i) { return '<p class="' + (i ? "p-more" : "p-lead") + '" data-reveal>' + esc(p) + '</p>'; }).join("");
+    if (s.type === "pair") body = '<div class="opts">' + s.items.map(function (it) { return '<article class="opt" data-reveal><h3>' + esc(it[0]) + '</h3>' + it[1].map(function (p) { return '<p>' + esc(p) + '</p>'; }).join("") + '</article>'; }).join("") + '</div>';
+    if (s.type === "list") {
+      body = '<ul class="sym' + (s.style === "check" ? " check" : "") + '">' + s.items.map(function (i) { return '<li data-reveal>' + esc(i) + '</li>'; }).join("") + '</ul>';
+      if (s.note) body += '<p class="tp-note" data-reveal>' + esc(s.note) + '</p>';
+    }
+    if (s.type === "options") body = '<div class="opts">' + s.items.map(function (o, i) { return '<article class="opt" data-reveal><span class="num">' + U.pad(i + 1) + '</span><h3>' + esc(o[0]) + '</h3><p>' + esc(o[1]) + '</p></article>'; }).join("") + '</div>';
+    if (s.type === "steps") body = U.steps(s.items);
+    secs.push({ id: sid, label: label(s), html: '<section class="tp-sec" id="' + sid + '"><h2 data-reveal>' + esc(s.type === "pair" ? "Understanding the Treatment" : s.h) + '</h2>' + body + '</section>' });
+  });
+  secs.push({ id: "sec-why", label: "Why our clinic", html: '<section class="tp-sec" id="sec-why"><h2 data-reveal>Why Choose Our Clinic?</h2><div class="why4" data-reveal>' +
+    [["30+ Years of Advanced Dentistry", "A long-standing commitment to providing comprehensive dental care."],
+     ["Conservative Dental Approach", "We assess whether a natural tooth can be preserved before considering replacement options."],
+     ["Personalised Treatment Plans", "Dental recommendations based on individual oral health conditions and patient expectations."],
+     ["Clear Communication", "We explain dental conditions, treatment alternatives and associated considerations."]]
+    .map(function (o) { return '<div><h3>' + esc(o[0]) + '</h3><p>' + esc(o[1]) + '</p></div>'; }).join("") + '</div></section>' });
+  secs.push({ id: "sec-faq", label: "FAQs", html: '<section class="tp-sec" id="sec-faq"><h2 data-reveal>Frequently Asked Questions</h2><div data-reveal="fade">' + U.faq(t.faqs) + '</div></section>' });
+
+  var html = '<section class="tp-hero"><div class="wrap">' +
+    '<nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="index.html#treatments">Treatments</a><span aria-hidden="true">/</span><span aria-current="page">' + esc(t.name) + '</span></nav>' +
+    '<div class="tp-hero-grid"><div>' +
+      '<span class="eyebrow rise">Treatment ' + U.pad(idx + 1) + ' · ' + esc(t.fullName || t.name) + '</span>' +
+      '<h1 class="rise" style="--d:60ms">' + esc(t.heading) + '</h1>' +
+      t.intro.map(function (p, i) { return '<p class="lead rise" style="--d:' + (110 + i * 40) + 'ms">' + esc(p) + '</p>'; }).join("") +
+      '<div class="actions rise" style="--d:220ms"><a class="btn" href="contact.html?treatment=' + t.id + '">Book a consultation ' + U.ARROW + '</a><a class="btn btn-ghost" href="' + S.phoneHref + '">Call ' + esc(S.phone) + '</a></div>' +
+    '</div><div class="ph" data-img="treat-' + t.id + '" data-alt="' + esc(t.name) + '" data-label="' + esc(t.name) + ' photograph" data-mask></div></div>' +
+  '</div></section>';
+
+  html += '<div class="wrap tp-body">' +
+    '<nav class="toc" aria-label="On this page"><p>On this page</p><ol><span class="toc-mark" id="tocMark" aria-hidden="true"></span>' +
+      secs.map(function (s) { return '<li><a href="#' + s.id + '">' + esc(s.label) + '</a></li>'; }).join("") + '</ol></nav>' +
+    '<div class="tp-main">' + secs.map(function (s) { return s.html; }).join("") + '</div>' +
+  '</div>';
+
+  var rel = [1, 2, 3].map(function (k) { return S.treatments[(idx + k) % S.treatments.length]; });
+  html += '<section class="rel"><div class="wrap"><h2 data-reveal>Explore more treatments</h2><div class="rel-grid">' +
+    rel.map(function (r) { return '<a class="rc" href="treatment.html?id=' + r.id + '" data-reveal><div class="ph" data-img="treat-' + r.id + '" data-alt=""></div><div class="txt"><h3>' + esc(r.name) + '<span aria-hidden="true">→</span></h3><p>' + esc(r.short) + '</p></div></a>'; }).join("") +
+  '</div>' +
+  '<details class="review-note"><summary>Page SEO (for client review)</summary><dl><dt>SEO title</dt><dd>' + esc(t.seoTitle) + '</dd><dt>Meta description</dt><dd>' + esc(t.meta) + '</dd><dt>Primary keywords</dt><dd>' + t.keywords.map(esc).join(", ") + '</dd></dl></details>' +
+  '</div></section>';
+
+  html += U.cta();
+  document.getElementById("main").innerHTML = html;
+  pageReady();
+
+  /* "On this page": highlight the section being read; the marker slides to it */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a")), mark = document.getElementById("tocMark");
+  if (links.length && "IntersectionObserver" in window) {
+    var current = null;
+    function setActive(id) {
+      if (id === current) return; current = id;
+      links.forEach(function (a) {
+        var on = a.getAttribute("href") === "#" + id;
+        a.setAttribute("aria-current", on);
+        if (on && mark) { mark.style.height = a.offsetHeight + "px"; mark.style.transform = "translateY(" + a.parentNode.offsetTop + "px)"; }
+      });
+    }
+    var tio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    secs.forEach(function (s) { tio.observe(document.getElementById(s.id)); });
+    setActive(secs[0].id);
+  }
+})();
+</script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

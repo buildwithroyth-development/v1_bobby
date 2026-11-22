@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Clinics | Dr. Bobby Thomas Dental &amp; Implant Centre</title>
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/fx.css">
+</head>
+<body data-page="clinic">
+<main id="main"></main>
+<dialog class="sheet" id="techDialog" aria-labelledby="techTitle"><div class="sheet-inner" id="techBody"></div></dialog>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/motion.js"></script>
+<script>
+(function () {
+  var S = SITE, U = UI, esc = U.esc;
+  var id = new URLSearchParams(location.search).get("id");
+  var c = S.clinics.find(function (x) { return x.id === id; }) || S.clinics[0];
+  var other = S.clinics.find(function (x) { return x !== c; });
+  document.title = "Dental Clinic in " + c.name + ", Bengaluru | Dr. Bobby Thomas Dental & Implant Centre";
+  document.querySelector('meta[name="description"]').setAttribute("content", c.intro[0]);
+
+  var ICONS = {
+    laser: '<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 22L18 8"/><path d="M18 8l3-3M20 12h3M14 6V3"/><circle cx="18" cy="8" r="2"/></svg>',
+    scan: '<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M18 4h3a1 1 0 0 1 1 1v3M22 18v3a1 1 0 0 1-1 1h-3M8 22H5a1 1 0 0 1-1-1v-3M4 13h18"/></svg>',
+    scano: '<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="7" y="3" width="12" height="20" rx="3"/><path d="M11 19h4"/><path d="M10 10c1.5 2 4.5 2 6 0"/></svg>',
+    microscope: '<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 3l4 2-4 8-4-2z"/><path d="M12 9a7 7 0 0 1 4 12M5 23h16M9 19h6"/></svg>'
+  };
+
+  var html = '<section class="page-hero"><div class="wrap">' +
+    '<nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="index.html#locations">Clinics</a><span aria-hidden="true">/</span><span aria-current="page">' + esc(c.name) + '</span></nav>' +
+    '<div class="hero-2"><div>' +
+      '<span class="eyebrow" data-reveal>' + esc(c.eyebrow) + '</span>' +
+      '<h1 data-reveal>' + esc(c.heading) + '</h1>' + SMILE("draw smile-under") +
+      c.intro.map(function (p) { return '<p class="lead" data-reveal>' + esc(p) + '</p>'; }).join("") +
+      '<ul class="chips hero-meta" style="list-style:none;padding:0" data-reveal>' + c.highlights.map(function (h) { return '<li class="chip">' + esc(h) + '</li>'; }).join("") + '</ul>' +
+      '<div class="actions" data-reveal><a class="btn" href="contact.html?clinic=' + c.id + '">Book a consultation ' + U.ARROW + '</a><a class="btn btn-ghost" href="' + c.map + '" target="_blank" rel="noopener">Get directions</a></div>' +
+    '</div><div class="ph" data-img="clinic-' + c.id + '" data-alt="' + esc(c.label) + '" data-label="' + esc(c.label) + ' clinic photograph" data-mask></div></div></div></section>';
+
+  html += '<div class="wrap">';
+  html += '<section class="row"><div class="side"><span class="eyebrow">A little about our clinic</span><h2 data-reveal>' + esc(c.aboutH) + '</h2></div><div class="content">' +
+    c.about.map(function (p) { return '<p data-reveal>' + esc(p) + '</p>'; }).join("") +
+    '<div class="keys" style="margin-top:2rem">' + c.keys.map(function (k) { return '<article class="card" data-reveal><h3 style="margin-top:0">' + esc(k[0]) + '</h3><p>' + esc(k[1]) + '</p></article>'; }).join("") + '</div>' +
+  '</div></section>';
+
+  html += '<section class="row" style="display:block"><div class="section-head split"><div><span class="eyebrow">Modern dental technology</span><h2 class="h2" style="font-size:var(--step-3)" data-reveal>' + esc(c.techH) + '</h2></div><div>' +
+    c.techP.map(function (p) { return '<p class="lead" data-reveal>' + esc(p) + '</p>'; }).join("") + '</div></div>' +
+    '<div class="tech-grid">' + c.tech.map(function (k, i) {
+      var t = S.tech[k];
+      return '<button type="button" class="card tech-card" data-tech="' + k + '" data-reveal aria-haspopup="dialog"><span class="ico">' + ICONS[k] + '</span><span class="num">Technology ' + (i + 1) + '</span><h3 style="margin:0">' + esc(t.name) + '</h3>' + (t.tag ? '<span class="tag">' + esc(t.tag) + '</span>' : '') + '<p>' + esc(t.card) + '</p><span class="go">Learn more <span aria-hidden="true">→</span></span></button>';
+    }).join("") + '</div></section>';
+
+  html += '<section style="padding:clamp(2rem,5vw,4rem) 0 var(--section)"><div class="visit-card" data-reveal="scale"><div><span class="eyebrow" style="color:inherit">We look forward to welcoming you</span><h2>' + esc(c.visitH) + '</h2>' +
+    c.visit.map(function (p) { return '<p style="margin-top:1rem">' + esc(p) + '</p>'; }).join("") + '</div>' +
+    '<div class="info"><div><b>' + esc(S.name) + '</b><address style="font-style:normal;margin-top:.3rem">' + esc(c.address) + '</address></div>' +
+    '<div><b>Nearby areas</b><p>' + c.areas.map(esc).join(" · ") + '</p></div>' +
+    '<div><b>Contact</b><p><a href="' + S.phoneHref + '" style="color:inherit">' + esc(S.phone) + '</a></p></div>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:.6rem"><a class="btn" href="contact.html?clinic=' + c.id + '">Book a consultation</a><a class="btn btn-ghost" href="' + c.map + '" target="_blank" rel="noopener">Directions</a></div>' +
+    '</div></div>' +
+    '<p class="muted" style="margin-top:1.5rem;text-align:center">Also visit our <a class="link" href="clinic.html?id=' + other.id + '">' + esc(other.name) + ' clinic</a>.</p></section>';
+  html += '</div>';
+
+  document.getElementById("main").innerHTML = html;
+
+  /* Tech detail dialog (modal: centered, 300ms) */
+  var dlg = document.getElementById("techDialog"), body = document.getElementById("techBody"), lastBtn;
+  document.querySelectorAll("[data-tech]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = S.tech[b.dataset.tech]; lastBtn = b;
+      var h = '<button class="sheet-close" type="button" aria-label="Close">×</button><span class="eyebrow">' + esc(t.name) + '</span><h2 id="techTitle">' + esc(t.heading) + '</h2>' +
+        t.p.map(function (p) { return '<p class="muted">' + esc(p.replace("{clinic}", c.clinicWord)) + '</p>'; }).join("");
+      if (t.steps) h += '<h3>' + esc(t.steps[0]) + '</h3>' + U.steps(t.steps[1]);
+      (t.lists || []).forEach(function (l) { h += '<h3>' + esc(l[0]) + '</h3><ul class="checklist">' + l[1].map(function (i) { return '<li>' + esc(i) + '</li>'; }).join("") + '</ul>'; });
+      if (t.disclaimer) h += '<p class="disclaimer"><b>Important disclaimer:</b> ' + esc(t.disclaimer) + '</p>';
+      h += '<div style="margin-top:2rem"><a class="btn" href="contact.html?clinic=' + c.id + '">Book a consultation ' + U.ARROW + '</a></div>';
+      body.innerHTML = h;
+      body.querySelectorAll("[data-reveal]").forEach(function (el) { el.classList.add("in"); });
+      body.querySelector(".sheet-close").addEventListener("click", function () { dlg.close(); });
+      dlg.showModal(); body.scrollTop = 0;
+    });
+  });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", function () { lastBtn && lastBtn.focus(); });
+
+  pageReady();
+})();
+</script>
+<script src="assets/fx.js"></script>
+</body>
+</html>

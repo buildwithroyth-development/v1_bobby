@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smile Gallery | Dr. Bobby Thomas Dental &amp; Implant Centre, Bengaluru</title>
+<meta name="description" content="Every smile is unique, and every dental treatment journey is different. Explore selected dental cases and smile transformations from our clinic.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/sections.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/motion.css">
+<link rel="stylesheet" href="assets/fx.css">
+</head>
+<body data-page="gallery">
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Smile gallery</span></nav>
+      <span class="eyebrow" data-reveal>REAL SMILES, REAL STORIES</span>
+      <h1 data-reveal>A Closer Look at <span class="em">Smile Transformations.</span></h1>
+      <svg class="smile draw smile-under" viewBox="0 0 400 60" aria-hidden="true" preserveAspectRatio="none"><path d="M4 8 C 90 62, 310 62, 396 8"/></svg>
+      <p class="lead" data-reveal>Every smile is unique, and every dental treatment journey is different. Explore selected dental cases and smile transformations from our clinic.</p>
+      <p class="lead" data-reveal>From smile enhancement and teeth alignment to dental implants and full-mouth rehabilitation, discover examples of dental care focused on improving oral health and smile appearance.</p>
+    </div>
+  </section>
+  <div class="wrap" style="padding-bottom:var(--section)">
+    <!-- Doc categories not shown yet (no photographs sorted into them): Full Smile Makeover, Teeth Whitening, Dental Implants,
+         Smile Redesign, Crowns &amp; Bridges, Full-Mouth Rehabilitation. Add a data-cat and a filter button when photos arrive. -->
+    <div class="gallery-cats" role="group" aria-label="Filter the gallery"><button type="button" class="chip" aria-pressed="true" data-f="all">All <small>15</small></button><button type="button" class="chip" aria-pressed="false" data-f="ortho">Orthodontic Treatment <small>11</small></button><button type="button" class="chip" aria-pressed="false" data-f="cosmetic">Cosmetic Dentistry <small>2</small></button></div>
+    <div class="results gallery-grid" id="galleryGrid">
+      <figure class="result" data-reveal data-cat="cosmetic"><div class="ph" data-img="gallery/cosmetic-01" data-alt="Before and after veneer smile makeover, close-up of teeth"></div></figure>
+      <figure class="result" data-reveal data-cat="cosmetic"><div class="ph" data-img="ba-1" data-alt="Before and after smile transformation, close-up of teeth"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-08" data-alt="Before and after orthodontic treatment, patient portrait"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-05" data-alt="Before and after orthodontic treatment, patient portrait"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-06" data-alt="Before and after orthodontic treatment with braces, patient portrait"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-07" data-alt="Before and after orthodontic treatment, young patient portrait"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-10" data-alt="Before and after orthodontic treatment, patient portrait"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-01" data-alt="Before and after orthodontic treatment, front view of teeth"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-02" data-alt="Before and after closing gaps between teeth with orthodontic treatment"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-03" data-alt="Before and after orthodontic treatment, side view of teeth"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-04" data-alt="Before and after correcting a crossbite, front view of teeth"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-09" data-alt="Before and after 15 months of orthodontic treatment"></div></figure>
+      <figure class="result" data-reveal data-cat="ortho"><div class="ph" data-img="gallery/ortho-11" data-alt="Before and after orthodontic treatment, side view of teeth"></div></figure>
+      <figure class="result" data-reveal data-cat=""><div class="ph" data-img="ba-2" data-alt="Before and after smile improvement, patient portrait"></div></figure>
+      <figure class="result" data-reveal data-cat=""><div class="ph" data-img="ba-3" data-alt="Before and after smile enhancement, patient portrait"></div></figure>
+    </div>
+  </div>
+  <div id="cta"></div>
+</main>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/motion.js"></script>
+<script src="assets/listing.js"></script>
+<script>
+/* Gallery filter: show one category at a time */
+(function () {
+  var bar = document.querySelector(".gallery-cats"), grid = document.getElementById("galleryGrid");
+  if (!bar || !grid) return;
+  bar.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    bar.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+    var f = b.dataset.f;
+    grid.querySelectorAll(".result").forEach(function (r) { r.hidden = !(f === "all" || r.dataset.cat === f); r.classList.add("in"); });
+  });
+})();
+</script>
+<script src="assets/fx.js"></script>
+</body>
+</html>
