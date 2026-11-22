@@ -1,0 +1,82 @@
+/* Gradient shapes in the page margins, plus interactive bits (tilt, treatment picker).
+   Shapes are not circles: diamonds, bands, triangles, bowls. Float = transform only. */
+.section, .final { overflow: clip; }
+.section > .wrap, .final > .wrap { position: relative; z-index: 1; }
+.shp { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.sh { position: absolute; will-change: transform; }
+.sh i { display: block; position: relative; width: 100%; height: 100%; animation: sh-a var(--t, 18s) ease-in-out var(--dl, 0s) infinite alternate; }
+.sh.b i { animation-name: sh-b; }
+.sh.c i { animation-name: sh-c; }
+.sh i::before { content: ""; position: absolute; inset: 0; background: var(--g, linear-gradient(135deg, rgba(206,178,189,.85), rgba(142,118,146,.35))); }
+@keyframes sh-a { from { transform: translate3d(0, 0, 0) rotate(var(--r0, 0deg)); } to { transform: translate3d(calc(18px * var(--amp, 1)), calc(-26px * var(--amp, 1)), 0) rotate(calc(var(--r0, 0deg) + 7deg * var(--amp, 1))); } }
+@keyframes sh-b { from { transform: translate3d(0, 0, 0) rotate(var(--r0, 0deg)); } to { transform: translate3d(calc(-24px * var(--amp, 1)), calc(20px * var(--amp, 1)), 0) rotate(calc(var(--r0, 0deg) - 9deg * var(--amp, 1))); } }
+@keyframes sh-c { from { transform: translate3d(0, 0, 0) scale(1) rotate(var(--r0, 0deg)); } to { transform: translate3d(calc(14px * var(--amp, 1)), calc(14px * var(--amp, 1)), 0) scale(1.06) rotate(calc(var(--r0, 0deg) + 4deg)); } }
+/* forms */
+.sh.dia i::before { border-radius: 22%; }
+.sh.dia i { --r0: 45deg; }
+.sh.band i::before { border-radius: 14px; }
+.sh.band i { --r0: -18deg; }
+.sh.tri i::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.sh.sq i::before { border-radius: 26px; }
+.sh.sq i { --r0: 14deg; }
+.sh.bowl i::before { border-radius: 0 0 999px 999px / 0 0 100% 100%; }
+.sh.soft { --g: linear-gradient(135deg, rgba(255,255,255,.95), rgba(206,178,189,.5)); }
+.sh.deep { --g: linear-gradient(135deg, rgba(87,46,84,.26), rgba(142,118,146,.1)); }
+.sh.rose { --g: linear-gradient(160deg, rgba(206,178,189,.9), rgba(226,210,200,.2)); }
+/* four placements, each leaves the reading column clear */
+.shp[data-set="a"] .s1 { width: clamp(130px, 15vw, 240px); aspect-ratio: 1; right: -8%; top: 6%; }
+.shp[data-set="a"] .s2 { width: clamp(260px, 34vw, 520px); height: clamp(34px, 4vw, 60px); left: -6%; bottom: 14%; }
+.shp[data-set="a"] .s3 { width: clamp(60px, 7vw, 110px); aspect-ratio: 1; right: 12%; bottom: 8%; }
+.shp[data-set="b"] .s1 { width: clamp(200px, 24vw, 380px); height: clamp(90px, 10vw, 160px); left: -5%; top: 6%; }
+.shp[data-set="b"] .s2 { width: clamp(90px, 11vw, 170px); aspect-ratio: 1; right: 2%; top: 38%; }
+.shp[data-set="b"] .s3 { width: clamp(180px, 26vw, 400px); height: clamp(30px, 3.4vw, 50px); right: -8%; bottom: 10%; }
+.shp[data-set="c"] .s1 { width: clamp(100px, 12vw, 190px); aspect-ratio: 1; left: -2%; top: 14%; }
+.shp[data-set="c"] .s2 { width: clamp(150px, 18vw, 290px); aspect-ratio: 1; right: -4%; bottom: 8%; }
+.shp[data-set="c"] .s3 { width: clamp(220px, 30vw, 460px); height: clamp(30px, 3.6vw, 54px); left: 8%; bottom: -2%; }
+.shp[data-set="d"] .s1 { width: clamp(120px, 14vw, 220px); aspect-ratio: 1; right: -2%; top: 10%; }
+.shp[data-set="d"] .s2 { width: clamp(80px, 9vw, 140px); aspect-ratio: 1; left: 3%; top: 40%; }
+.shp[data-set="d"] .s3 { width: clamp(240px, 32vw, 500px); height: clamp(100px, 12vw, 190px); left: -8%; bottom: -3%; }
+@media (max-width: 700px) { .shp .sh { opacity: .55; } .shp[data-set] .s3 { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sh { --amp: .4; } .sh i { animation-duration: calc(var(--t, 18s) * 1.6); } }
+
+/* tilt */
+.js [data-tilting] { transition: transform 120ms var(--ease-out), box-shadow 200ms ease; will-change: transform; }
+
+/* treatment picker */
+.pick { background: var(--bg); }
+.pick-grid { display: grid; gap: 1.2rem; align-items: stretch; }
+@media (min-width: 900px) { .pick-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+.pick-chips { display: flex; flex-wrap: wrap; gap: .55rem; align-content: flex-start; }
+.pick-chips button { font: inherit; font-size: .95rem; padding: .7rem 1.1rem; min-height: 44px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); cursor: pointer; text-align: left; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 160ms var(--ease-out); }
+.pick-chips button:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .pick-chips button:hover { border-color: var(--cocoa); transform: translateY(-2px); } }
+.pick-chips button[aria-pressed="true"] { background: var(--cocoa); color: var(--accent-ink); border-color: var(--cocoa); }
+.pick-card { position: relative; display: grid; grid-template-columns: 1fr; border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); min-height: 280px; }
+@media (min-width: 560px) { .pick-card { grid-template-columns: .8fr 1fr; } }
+.pick-card .pc-ph { position: relative; min-height: 180px; background: var(--blush); overflow: hidden; }
+.pick-card .pc-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pick-card .pc-tx { padding: 1.4rem 1.5rem; display: grid; gap: .6rem; align-content: center; }
+.pick-card .pc-k { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.pick-card h3 { font-size: var(--step-2); }
+.pick-card p { color: var(--muted); font-size: .98rem; }
+.pick-card .pc-note { font-size: .86rem; }
+.pick-card .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .4rem; }
+.pick-card .pc-ph img, .pick-card .pc-tx > * { transition: opacity 260ms var(--ease-out), transform 300ms var(--ease-out); }
+.pick-card.swap .pc-ph img, .pick-card.swap .pc-tx > * { opacity: 0; transform: translateY(8px); }
+.pick-card .pc-tx > *:nth-child(2) { transition-delay: 40ms; }
+.pick-card .pc-tx > *:nth-child(3) { transition-delay: 80ms; }
+.pick-card .pc-tx > *:nth-child(n+4) { transition-delay: 120ms; }
+
+/* treatments page: its two sections host the shapes */
+.tr-hero, .tr-index { position: relative; overflow: clip; }
+.tr-hero > .wrap, .tr-index > .wrap { position: relative; z-index: 1; }
+
+/* About page: sections host the shapes */
+.ab-hero, .ab-philo, .ab-founder, .ab-approach, .ab-gallery, .ab-team { position: relative; overflow: clip; }
+.about section > .wrap { position: relative; z-index: 1; }
+
+/* page-level layer (pages without hand-placed shapes) */
+main.has-shapes { position: relative; overflow: clip; }
+.shp.pg { z-index: 0; }
+.shp.pg .sh { right: auto; }
+main.has-shapes > *:not(.shp) { position: relative; z-index: 1; }

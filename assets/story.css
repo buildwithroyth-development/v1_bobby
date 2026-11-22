@@ -1,0 +1,145 @@
+/* ==========================================================
+   Homepage scroll story on the doc's own sections (GSAP + ScrollTrigger in story.js).
+   Calm personality: long ease-out, one moving idea per screen.
+   Without JS, GSAP or motion, every section is a normal stacked section.
+   ========================================================== */
+
+/* ---------- Scroll progress: a thin line across the top ---------- */
+.progress { display: block; height: 2px; background: var(--caramel); z-index: 61; }
+@media (prefers-reduced-motion: reduce) { .progress { display: none; } }
+
+/* ---------- Intro curtain (first visit in a session) ---------- */
+.curtain { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: grid; place-items: center; pointer-events: none;
+  animation: curtain-up 700ms var(--ease-in-out) 520ms forwards; }
+.curtain svg { width: 64px; height: 64px; animation: curtain-mark 520ms var(--ease-out) both; }
+@keyframes curtain-up { to { transform: translateY(-100%); } }
+@keyframes curtain-mark { from { opacity: 0; transform: scale(.9); } }
+/* The hero waits for the curtain */
+html.has-intro .rise { animation-delay: calc(var(--d, 0ms) + 760ms) !important; }
+html.has-intro .hs-photo, html.has-intro .hs-photo img { animation-delay: 1s !important; }
+html.has-intro .hero h1 .ln > span { animation-delay: 1s !important; }
+html.has-intro .hero-badge { animation-delay: 2.2s !important; }
+html.has-intro .highlights li { animation-delay: calc(1.2s + var(--i, 0) * 90ms) !important; }
+html.has-intro .hero-smile path { animation-delay: 1.5s !important; }
+html.has-intro .hero h1.split .w > span { transition-delay: calc(760ms + var(--d, 0ms) + var(--i, 0) * 55ms) !important; }
+
+/* ---------- About: the opening paragraph becomes a statement that fills in with the scroll ---------- */
+.about-grid .copy .fill-text { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.35rem, 1rem + 1.3vw, 2.05rem);
+  line-height: 1.3; letter-spacing: -.025em; color: var(--text); max-width: 30ch; }
+.fill-text .sw { will-change: opacity; }
+
+/* ---------- Treatments slide sideways (pinned, wide screens) ---------- */
+#treatments.hscroll { min-height: 100vh; display: flex; align-items: center; padding-block: clamp(5.5rem, 9vh, 7rem) clamp(2rem, 5vh, 3.5rem) !important; overflow: hidden; }
+#treatments.hscroll > .wrap { width: 100%; }
+#treatments.hscroll .section-head { margin-bottom: clamp(1.5rem, 4vh, 2.5rem); }
+#treatments.hscroll .section-head .lead + .lead, #treatments.hscroll .tabs { display: none; }
+#treatments.hscroll .t-grid { display: flex; gap: 1.25rem; width: max-content; will-change: transform; }
+#treatments.hscroll .t { width: clamp(280px, 25vw, 360px); flex: none; grid-column: auto !important; }
+#treatments.hscroll .t .ph { aspect-ratio: auto !important; height: min(36vh, 320px); }
+.h-progress { display: none; height: 2px; margin-top: clamp(1.5rem, 4vh, 2.5rem); background: var(--line-strong); border-radius: 2px; overflow: hidden; }
+.h-progress i { display: block; height: 100%; background: var(--cocoa); transform: scaleX(0); transform-origin: 0 50%; }
+#treatments.hscroll .h-progress { display: block; }
+@media (max-height: 820px) { #treatments.hscroll .t .ph { height: 27vh; } #treatments.hscroll .section-head { margin-bottom: 1.25rem; } }
+
+/* ---------- Why choose us: the five cards stack up while the section holds (wide screens) ---------- */
+#why.why-stack { min-height: 100vh; display: flex; align-items: center; padding-block: clamp(5.5rem, 10vh, 7rem) clamp(3rem, 7vh, 4.5rem) !important; }
+#why.why-stack > .wrap { width: 100%; display: grid; grid-template-columns: 1.05fr 1fr; grid-template-areas: "head stack" "yrs stack"; column-gap: clamp(3rem, 6vw, 6rem); align-items: center; }
+#why.why-stack .head-c { grid-area: head; text-align: left; justify-items: start; margin-bottom: 2rem; align-self: end; }
+#why.why-stack .head-c .h2 { max-width: 16ch; }
+#why.why-stack .yrs-row { grid-area: yrs; justify-content: flex-start; margin: 0; align-self: start; }
+#why.why-stack .why-grid { grid-area: stack; position: relative; display: block; height: min(46vh, 360px); margin-top: 1rem; }
+#why.why-stack .wcard { position: absolute; inset: 0; padding: clamp(1.6rem, 3vw, 2.4rem); gap: .6rem; transform-origin: 50% 0;
+  box-shadow: 0 1px 2px rgba(72,42,65,.04), 0 24px 40px -28px rgba(72,42,65,.4); transition: none !important; will-change: transform; }
+#why.why-stack .wcard .badge { width: 56px; height: 56px; border-radius: 16px; margin-bottom: auto; }
+#why.why-stack .wcard .badge svg { width: 26px; height: 26px; }
+#why.why-stack .wcard h3 { font-size: clamp(1.4rem, 1rem + 1.2vw, 2rem); letter-spacing: -.03em; line-height: 1.15; max-width: 16ch; }
+#why.why-stack .wcard p { font-size: 1rem; max-width: 34ch; }
+.why-count { position: absolute; left: 0; bottom: -2.6rem; font-size: .85rem; color: var(--muted); letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.why-count b { color: var(--text); font-weight: 600; }
+
+/* ---------- Pre-wedding card grows to full width ---------- */
+.wed.grow { transform-origin: 50% 0; will-change: transform; }
+
+/* ---------- Closing section opens out from an inset panel ---------- */
+.final.open { will-change: clip-path; }
+
+/* ---------- Desktop cursor: a soft ring that says "View" over cards ---------- */
+.cursor { position: fixed; left: 0; top: 0; z-index: 150; width: 14px; height: 14px; margin: -7px 0 0 -7px; pointer-events: none; opacity: 0; transition: opacity 200ms ease; }
+.cursor i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--cocoa); background: rgba(206,178,189,.18);
+  transition: transform 300ms var(--ease-out), background-color 200ms ease, border-color 200ms ease; }
+.cursor b { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font: 600 .7rem/1 var(--font-text); letter-spacing: .08em; text-transform: uppercase; color: #FFFDFB;
+  opacity: 0; transition: opacity 150ms ease; white-space: nowrap; }
+.cursor.on { opacity: 1; }
+.cursor.link i { transform: scale(2.6); background: rgba(206,178,189,.25); border-color: transparent; }
+.cursor.view i { transform: scale(5.4); background: var(--cocoa); border-color: var(--cocoa); }
+.cursor.view b { opacity: 1; transition-delay: 80ms; }
+.cursor.down i { transform: scale(.8); }
+.cursor.view.down i { transform: scale(4.8); }
+
+/* ==========================================================
+   Layered compositions (depths set by assets/layers.js)
+   ========================================================== */
+.lay { position: relative; isolation: isolate; width: 100%; }
+.lay .ly { position: absolute; }
+.lay .ly .ph { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; max-width: none; border: 0; border-radius: 24px; }
+.ly-shape { position: absolute; z-index: -1; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, color-mix(in srgb, var(--sand) 62%, var(--bg)), color-mix(in srgb, var(--sand) 22%, var(--bg)) 58%, transparent 71%); }
+.ly-ring { position: absolute; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--caramel) 60%, transparent); pointer-events: none; }
+
+/* About: treatment room behind, dentist at work framed in front */
+.about-media { aspect-ratio: 1 / 1.1; max-width: 600px; }
+.about-media .ly-shape { inset: -8% 20% 22% -14%; }
+.about-media .ly-a { top: 0; left: 0; width: 76%; height: 82%; }
+.about-media .ly-b { right: 0; bottom: 0; width: 50%; height: 42%; }
+.about-media .ly-b .ph { border-radius: 20px; box-shadow: 0 0 0 6px var(--bg), 0 26px 44px -24px rgba(72,42,65,.5); }
+.about-media .ly-ring { width: 22%; aspect-ratio: 1; left: 64%; top: 4%; }
+
+/* Pre-wedding */
+.wed-media { aspect-ratio: 5 / 4.6; max-width: 560px; justify-self: center; }
+.wed-media .ly-shape { inset: 4% -6% 0 22%; }
+.wed-media .ly-a { inset: 6% 12% 6% 6%; }
+.wed-media .ly-a .ph { border-radius: 20px; box-shadow: 0 30px 50px -30px rgba(72,42,65,.5); }
+.wed-media .ly-ring { width: 24%; aspect-ratio: 1; right: 0; bottom: 3%; }
+
+/* Closing section: a ring behind the 3D smile and a sand dot in front of the words */
+.final .wrap { position: relative; }
+.fin-shape { position: absolute; border-radius: 50%; pointer-events: none; }
+.fin-shape-a { width: clamp(220px, 30vw, 420px); aspect-ratio: 1; left: calc(50% - clamp(110px, 15vw, 210px)); top: -3%; border: 1px solid color-mix(in srgb, var(--cocoa) 28%, transparent); }
+.fin-shape-b { width: clamp(38px, 4.5vw, 62px); aspect-ratio: 1; left: calc(50% + clamp(110px, 17vw, 250px)); top: 7%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--sand) 80%, #fff), var(--sand)); box-shadow: 0 12px 20px -12px rgba(72,42,65,.5); }
+
+/* ==========================================================
+   Text transitions on the homepage
+   Headings: every word rises out of its own mask (motion.js split).
+   Everything else: it lifts, un-blurs and settles, a touch later each time.
+   ========================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .js body[data-page="home"] [data-reveal]:not(.in) { transform: translateY(34px); }
+  .js body[data-page="home"] :is(.eyebrow, .lead, p, h3, ul.chips, .actions)[data-reveal]:not(.in) { filter: blur(6px); }
+  .js body[data-page="home"] :is(.eyebrow, .lead, p, h3, ul.chips, .actions)[data-reveal].in {
+    filter: none; transition: opacity 1s var(--ease-out), transform 1.2s var(--ease-out), filter 1s var(--ease-out); transition-delay: var(--d, 0ms); }
+  /* Hero words: same lift and un-blur, after the headline lines */
+  .js .hero .rise { opacity: 0; transform: translateY(28px); filter: blur(6px); animation: hero-rise 1s var(--ease-out) forwards; animation-delay: var(--d, 0ms); }
+}
+@keyframes hero-rise { to { opacity: 1; transform: none; filter: none; } }
+
+
+/* About, compact: headline + intro on one row, photos beside the copy, pillars in a single row */
+#about.ab2 { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.ab2-head { display: grid; gap: 1rem 3rem; align-items: end; margin-bottom: clamp(1.4rem, 3vw, 2rem); }
+.ab2-head .lead { margin: 0; }
+.ab2-body { display: grid; gap: 1.4rem 2.5rem; align-items: center; }
+.ab2-text { display: grid; gap: .9rem; }
+.ab2-text p { margin: 0; color: var(--muted); font-size: var(--step-0); max-width: 62ch; }
+.ab2-media { aspect-ratio: 4 / 3; max-width: 560px; margin-bottom: 1.6rem; }
+.ab2-media .ly-a { top: 0; left: 0; width: 72%; height: 90%; }
+.ab2-media .ly-b { right: 0; bottom: -6%; width: 46%; height: 58%; }
+.ab2-media .ly-b .ph { border-radius: 16px; box-shadow: 0 0 0 5px var(--bg), 0 20px 36px -22px rgba(72,42,65,.5); }
+.ab2-media .ly-a .ph { border-radius: 16px; }
+.ab2-keys { margin-top: clamp(1.2rem, 2.5vw, 1.8rem); gap: .8rem; }
+@media (min-width: 940px) {
+  .ab2-head { grid-template-columns: .85fr 1.15fr; gap: 1rem 2.5rem; }
+  .ab2-body { grid-template-columns: .85fr 1.15fr; }
+  .ab2-keys { grid-template-columns: repeat(3, 1fr); }
+  .ab2-keys .key { height: 100%; }
+}

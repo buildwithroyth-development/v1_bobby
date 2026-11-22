@@ -1,0 +1,63 @@
+/* Inner-page layouts (treatment, doctor, clinic, about, tourism, careers, contact) */
+.hero-2 { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+@media (min-width: 960px) { .hero-2 { grid-template-columns: 1.3fr 1fr; } }
+.hero-2 .ph { aspect-ratio: 4/3.4; border-radius: 28px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.8rem; }
+
+.row { display: grid; gap: 1.5rem 4rem; padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid var(--line); }
+@media (min-width: 900px) { .row { grid-template-columns: .9fr 1.4fr; } .row > .side { position: sticky; top: 110px; align-self: start; } }
+.row h2 { font-size: var(--step-2); max-width: 18ch; }
+.row .side .num { display: block; margin-bottom: .8rem; }
+.row .content > p { color: var(--muted); max-width: 62ch; }
+.row .content > p:first-child { color: var(--text); font-size: 1.2rem; font-family: var(--font-display); letter-spacing: -.01em; line-height: 1.5; }
+.row .note { margin-top: 1.2rem; font-size: .92rem; color: var(--muted); font-style: italic; }
+.opt-grid { display: grid; gap: 1rem; }
+@media (min-width: 640px) { .opt-grid { grid-template-columns: 1fr 1fr; } }
+.opt-grid .card h3 { margin-top: 0; }
+
+.related { display: grid; gap: 1rem; }
+@media (min-width: 760px) { .related { grid-template-columns: repeat(3, 1fr); } }
+.related a { text-decoration: none; display: flex; flex-direction: column; gap: .5rem; transition: transform 250ms var(--ease-out), border-color 200ms ease; }
+.related a:active { transform: scale(.98); }
+@media (hover: hover) and (pointer: fine) { .related a:hover { transform: translateY(-3px); border-color: var(--line-strong); } }
+
+/* Doctor profile */
+.doc-hero { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+@media (min-width: 900px) { .doc-hero { grid-template-columns: .8fr 1.3fr; align-items: start; } .doc-hero .portrait { position: sticky; top: 110px; } }
+.portrait .ph { aspect-ratio: 4/5; border-radius: 20px; display: grid; place-items: center; }
+.portrait .ph::after { content: attr(data-label); }
+.doc-hero h1 { font-size: var(--step-4); }
+.doc-hero .role { font-size: var(--step-1); color: var(--accent); font-family: var(--font-display); margin-top: .6rem; }
+.doc-sec { margin-top: 2.8rem; }
+.doc-sec h2 { font-size: var(--step-1); font-family: var(--font-text); font-weight: 600; letter-spacing: 0; margin-bottom: .8rem; }
+.other-docs { display: flex; flex-wrap: wrap; gap: .5rem; }
+.other-docs a { text-decoration: none; padding: .55rem 1rem; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .92rem; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
+.other-docs a:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .other-docs a:hover { background: var(--surface); } }
+
+/* Clinic page */
+.keys { display: grid; gap: 1rem; }
+@media (min-width: 700px) { .keys { grid-template-columns: 1fr 1fr; } }
+.tech-grid { display: grid; gap: 1rem; }
+@media (min-width: 900px) { .tech-grid { grid-template-columns: repeat(3, 1fr); } }
+.tech-card { text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: .8rem; font: inherit; color: inherit; min-height: 280px; transition: transform 200ms var(--ease-out), border-color 200ms ease; }
+.tech-card:active { transform: scale(.98); }
+@media (hover: hover) and (pointer: fine) { .tech-card:hover { border-color: var(--line-strong); } .tech-card:hover .go span { transform: translateX(4px); } }
+.tech-card .ico { width: 52px; height: 52px; border-radius: 16px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+.tech-card .tag { font-family: var(--font-display); color: var(--caramel); }
+.tech-card .go { margin-top: auto; color: var(--accent); font-weight: 600; font-size: .92rem; display: inline-flex; gap: .4rem; }
+.tech-card .go span { transition: transform 200ms var(--ease-out); }
+.visit-card { display: grid; gap: 2rem; background: var(--linen); color: var(--text); border: 0; padding: clamp(2rem, 5vw, 3.5rem); border-radius: 24px; }
+@media (min-width: 900px) { .visit-card { grid-template-columns: 1.3fr 1fr; align-items: center; } }
+.visit-card h2 { font-size: var(--step-3); max-width: 16ch; }
+.visit-card p { color: var(--muted); }
+.visit-card .info { background: var(--surface); border-radius: 22px; padding: 1.5rem; display: grid; gap: 1rem; }
+.visit-card .btn { background: var(--cocoa); color: #FFFDFB; }
+.visit-card .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--line-strong); }
+
+/* Contact */
+.contact-grid { display: grid; gap: 2.5rem; }
+@media (min-width: 960px) { .contact-grid { grid-template-columns: 1fr 1.25fr; gap: 4rem; } }
+.contact-list { display: grid; gap: 1rem; }
+.contact-list .card { display: grid; gap: .35rem; }
+.contact-list .card b { font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; letter-spacing: -.015em; }
